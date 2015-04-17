@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-        
+    
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
