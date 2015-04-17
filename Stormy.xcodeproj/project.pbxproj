@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AF896EF11AD9BC1E00990C28 /* Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF896EF01AD9BC1E00990C28 /* Current.swift */; };
+		AFD86F041ADF534F0022570F /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD86F031ADF534F0022570F /* Forecast.swift */; };
 		AFDDE5291AD9999A0011F519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDDE5281AD9999A0011F519 /* AppDelegate.swift */; };
 		AFDDE52B1AD9999A0011F519 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDDE52A1AD9999A0011F519 /* ViewController.swift */; };
 		AFDDE52E1AD9999A0011F519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFDDE52C1AD9999A0011F519 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		AF896EF01AD9BC1E00990C28 /* Current.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Current.swift; sourceTree = "<group>"; };
+		AFD86F031ADF534F0022570F /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		AFDDE5231AD9999A0011F519 /* Stormy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stormy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFDDE5271AD9999A0011F519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFDDE5281AD9999A0011F519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				AF896EF01AD9BC1E00990C28 /* Current.swift */,
+				AFD86F031ADF534F0022570F /* Forecast.swift */,
 				AFDDE5281AD9999A0011F519 /* AppDelegate.swift */,
 				AFDDE52A1AD9999A0011F519 /* ViewController.swift */,
 				AFDDE52C1AD9999A0011F519 /* Main.storyboard */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFD86F041ADF534F0022570F /* Forecast.swift in Sources */,
 				AF896EF11AD9BC1E00990C28 /* Current.swift in Sources */,
 				AFDDE52B1AD9999A0011F519 /* ViewController.swift in Sources */,
 				AFDDE5291AD9999A0011F519 /* AppDelegate.swift in Sources */,

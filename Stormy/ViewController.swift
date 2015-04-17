@@ -21,65 +21,54 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var refreshActivityIndicator: UIActivityIndicatorView!
+    
+    let forecast: Forecast = Forecast()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         refreshActivityIndicator.hidden = true
-       
         getCurrentWeatherData()
     }
     
     func getCurrentWeatherData() {
-        let baseURL = NSURL(string:"https://api.forecast.io/forecast/\(apiKey)/")
-        if let forecastURL = NSURL(string:"37.739024,-122.462700/", relativeToURL: baseURL) {
-            let sharedSession = NSURLSession.sharedSession()
-            let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastURL, completionHandler: {
-                (location: NSURL!, response: NSURLResponse!, error: NSError!) -> Void in
-                
-                if error == nil {
-                    if let dataObject = NSData(contentsOfURL: location) {
-                        let weatherDictionary: NSDictionary = NSJSONSerialization.JSONObjectWithData(dataObject, options: nil, error: nil) as! NSDictionary
-                        
-                        let currentWeather = Current(weatherDictionary: weatherDictionary)
-                        
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.temperatureLabel.text = "\(currentWeather.temperature)"
-                            self.currentTimeLabel.text = "At \(currentWeather.currentTime!) it is"
-                            self.humidityLabel.text = "\(currentWeather.humidity)"
-                            self.precipitationLabel.text = "\(currentWeather.precipProbability)"
-                            self.summaryLabel.text = "\(currentWeather.summary)"
-                            self.iconView.image = currentWeather.icon!
-                            
-                            self.refreshActivityIndicator.stopAnimating()
-                            self.refreshActivityIndicator.hidden = true
-                            self.refreshButton.hidden = false
-                        })
-                        
-                    }
-                } else {
-                    let networkIssueController = UIAlertController(title: "Error", message: "Unable to load data.  Connectivity error.", preferredStyle: .Alert)
-                    
-                    let okButton = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                    networkIssueController.addAction(okButton)
-                    
-                    let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-                    networkIssueController.addAction(cancelButton)
-
-                    self.presentViewController(networkIssueController, animated: true, completion: nil)
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.refreshActivityIndicator.stopAnimating()
-                        self.refreshActivityIndicator.hidden = true
-                        self.refreshButton.hidden = false
-                    })
-                }
-                
-            })
+        
+        forecast.loadCurrentWeatherData(refreshWithWeather, errorCallback: alertUserOfError)
+    }
+    
+    func alertUserOfError() {
+        let networkIssueController = UIAlertController(title: "Error", message: "Unable to load data.  Connectivity error.", preferredStyle: .Alert)
+        
+        let okButton = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        networkIssueController.addAction(okButton)
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        networkIssueController.addAction(cancelButton)
+        
+        self.presentViewController(networkIssueController, animated: true, completion: nil)
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.stopUpdating()
+        })
+    }
+    
+    func refreshWithWeather(currentWeather: Current) {
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.temperatureLabel.text = "\(currentWeather.temperature)"
+            self.currentTimeLabel.text = "At \(currentWeather.currentTime!) it is"
+            self.humidityLabel.text = "\(currentWeather.humidity)"
+            self.precipitationLabel.text = "\(currentWeather.precipProbability)"
+            self.summaryLabel.text = "\(currentWeather.summary)"
+            self.iconView.image = currentWeather.icon!
+            self.stopUpdating()
             
-            downloadTask.resume()
-        }
+        })
+    }
+    
+    func stopUpdating() {
+        self.refreshActivityIndicator.stopAnimating()
+        self.refreshActivityIndicator.hidden = true
+        self.refreshButton.hidden = false
     }
 
     @IBAction func refresh() {
