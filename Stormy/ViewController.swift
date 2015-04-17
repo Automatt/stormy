@@ -9,9 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    private let apiKey = "c8e33a8ffc6786ac699def73291860a0"
-    
+        
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
